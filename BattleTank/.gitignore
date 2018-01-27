@@ -70,3 +70,6 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# do not need to sync default starter content
+Content/StarterContent/*
