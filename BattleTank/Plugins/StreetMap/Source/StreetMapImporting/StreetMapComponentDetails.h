@@ -34,12 +34,10 @@ public:
 	/** Refreshes the details view and regenerates all the customized layouts. */
 	void RefreshDetails();
 
-
 protected:
 	/** Holds Selected Street Map Component */
-	 class UStreetMapComponent* SelectedStreetMapComponent;
+	class UStreetMapComponent* SelectedStreetMapComponent;
 
-	 /** Holds Last Detail Builder Pointer */
-	 IDetailLayoutBuilder*  LastDetailBuilderPtr;
-
+	/** Holds Last Detail Builder Pointer */
+	IDetailLayoutBuilder*  LastDetailBuilderPtr;
 };

@@ -9,19 +9,19 @@
 #include "TankAIController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-		
+
 public:
 	// Sets default values for this pawn's properties
 	ATankAIController();
 
 private:
-	ATank* GetControlledTank() const;
+	ATank * GetControlledTank() const;
 	ATank* GetPlayerTank() const;
 
 protected:
@@ -31,5 +31,4 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

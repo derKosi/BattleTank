@@ -20,18 +20,14 @@
 #include "NotificationManager.h"
 #include "AssertionMacros.h"
 
-
 #include "StreetMapComponent.h"
 
-
 #define LOCTEXT_NAMESPACE "StreetMapComponentDetails"
-
 
 FStreetMapComponentDetails::FStreetMapComponentDetails() :
 	SelectedStreetMapComponent(nullptr),
 	LastDetailBuilderPtr(nullptr)
 {
-
 }
 
 TSharedRef<IDetailCustomization> FStreetMapComponentDetails::MakeInstance()
@@ -55,7 +51,6 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 		}
 	}
 
-
 	if (SelectedStreetMapComponent == nullptr)
 	{
 		TArray<TWeakObjectPtr<AActor>> SelectedActors = DetailBuilder.GetDetailsView()->GetSelectedActors();
@@ -76,17 +71,13 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 		}
 	}
 
-
-
 	if (SelectedStreetMapComponent == nullptr)
 	{
 		return;
 	}
 
-
 	IDetailCategoryBuilder& StreetMapCategory = DetailBuilder.EditCategory("StreetMap", FText::GetEmpty(), ECategoryPriority::Important);
 	StreetMapCategory.InitiallyCollapsed(false);
-
 
 	const bool bCanRebuildMesh = HasValidMapObject();
 	const bool bCanClearMesh = HasValidMeshData();
@@ -125,7 +116,6 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 		]
 		];
 
-
 	StreetMapCategory.AddCustomRow(FText::GetEmpty(), false)
 		[
 			SAssignNew(TempHorizontalBox, SHorizontalBox)
@@ -146,7 +136,6 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 
 	if (bCanCreateMeshAsset)
 	{
-
 		const int32 NumVertices = SelectedStreetMapComponent->GetRawMeshVertices().Num();
 		const FString NumVerticesToString = TEXT("Vertex Count : ") + FString::FromInt(NumVertices);
 
@@ -167,7 +156,7 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 				.Font(FSlateFontInfo("Verdana", 8))
 			.Text(FText::FromString(NumVerticesToString))
 			]
-			+ SHorizontalBox::Slot()
+		+ SHorizontalBox::Slot()
 			.HAlign(HAlign_Left)
 			.VAlign(VAlign_Center)
 			[
@@ -175,24 +164,22 @@ void FStreetMapComponentDetails::CustomizeDetails(IDetailLayoutBuilder& DetailBu
 				.Font(FSlateFontInfo("Verdana", 8))
 			.Text(FText::FromString(NumTrianglesToString))
 			]
-			+ SHorizontalBox::Slot()
-				.HAlign(HAlign_Left)
-				.VAlign(VAlign_Center)
-				[
-					SNew(STextBlock)
-					.Font(FSlateFontInfo("Verdana", 8))
-				.Text(FText::FromString(CollisionStatusToString))
-				]
+		+ SHorizontalBox::Slot()
+			.HAlign(HAlign_Left)
+			.VAlign(VAlign_Center)
+			[
+				SNew(STextBlock)
+				.Font(FSlateFontInfo("Verdana", 8))
+			.Text(FText::FromString(CollisionStatusToString))
+			]
 			];
 	}
-
 }
 
 bool FStreetMapComponentDetails::HasValidMeshData() const
 {
 	return SelectedStreetMapComponent != nullptr && SelectedStreetMapComponent->HasValidMesh();
 }
-
 
 bool FStreetMapComponentDetails::HasValidMapObject() const
 {
@@ -233,13 +220,11 @@ FReply FStreetMapComponentDetails::OnCreateStaticMeshAssetClicked()
 			// Materials to apply to new mesh
 			TArray<UMaterialInterface*> MeshMaterials = SelectedStreetMapComponent->GetMaterials();
 
-			
 			const TArray<FStreetMapVertex > RawMeshVertices = SelectedStreetMapComponent->GetRawMeshVertices();
 			const TArray< uint32 > RawMeshIndices = SelectedStreetMapComponent->GetRawMeshIndices();
 
-
 			// Copy verts
-			for (int32 VertIndex = 0; VertIndex < RawMeshVertices.Num();VertIndex++)
+			for (int32 VertIndex = 0; VertIndex < RawMeshVertices.Num(); VertIndex++)
 			{
 				RawMesh.VertexPositions.Add(RawMeshVertices[VertIndex].Position);
 			}
@@ -317,7 +302,6 @@ FReply FStreetMapComponentDetails::OnCreateStaticMeshAssetClicked()
 				// Notify asset registry of new asset
 				FAssetRegistryModule::AssetCreated(StaticMesh);
 
-
 				// Display notification so users can quickly access the mesh
 				if (GIsEditor)
 				{
@@ -341,8 +325,7 @@ FReply FStreetMapComponentDetails::OnCreateStaticMeshAssetClicked()
 
 FReply FStreetMapComponentDetails::OnBuildMeshClicked()
 {
-
-	if(SelectedStreetMapComponent != nullptr)
+	if (SelectedStreetMapComponent != nullptr)
 	{
 		//
 		SelectedStreetMapComponent->BuildMesh();
@@ -370,7 +353,7 @@ FReply FStreetMapComponentDetails::OnClearMeshClicked()
 
 void FStreetMapComponentDetails::RefreshDetails()
 {
-	if(LastDetailBuilderPtr != nullptr)
+	if (LastDetailBuilderPtr != nullptr)
 	{
 		LastDetailBuilderPtr->ForceRefreshDetails();
 	}

@@ -3,13 +3,11 @@
 
 #include "FastXml.h"
 
-
 /** OpenStreetMap file loader */
 class FOSMFile : public IFastXmlCallback
 {
-	
 public:
-	
+
 	/** Default constructor for FOSMFile */
 	FOSMFile();
 
@@ -17,18 +15,17 @@ public:
 	virtual ~FOSMFile();
 
 	/** Loads the map from an OpenStreetMap XML file.  Note that in the case of the file path containing the XML data, the string must be mutable for us to parse it quickly. */
-	bool LoadOpenStreetMapFile( FString& OSMFilePath, const bool bIsFilePathActuallyTextBuffer, class FFeedbackContext* FeedbackContext );
-
+	bool LoadOpenStreetMapFile(FString& OSMFilePath, const bool bIsFilePathActuallyTextBuffer, class FFeedbackContext* FeedbackContext);
 
 	struct FOSMWayInfo;
-		
+
 	/** Types of ways */
 	enum class EOSMWayType
 	{
 		///
 		/// ROADS
 		///
-		
+
 		/** A restricted access major divided highway, normally with 2 or more running lanes plus emergency hard shoulder. Equivalent to the Freeway, Autobahn, etc. */
 		Motorway,
 
@@ -68,11 +65,10 @@ public:
 		/** The least most important through roads in a country's system, i.e. minor roads of a lower classification than tertiary, but which serve a purpose other than access to properties. */
 		Unclassified,
 
-
 		///
 		/// NON-ROADS
 		///
-		
+
 		/** Residential streets where pedestrians have legal priority over cars, speeds are kept very low and where children are allowed to play on the street. */
 		Living_Street,
 
@@ -91,11 +87,10 @@ public:
 		/** A road where the mapper is unable to ascertain the classification from the information available. */
 		Road,
 
-
 		///
 		/// PATHS
 		///
-		
+
 		/** For designated footpaths; i.e., mainly/exclusively for pedestrians. This includes walking tracks and gravel paths. */
 		Footway,
 
@@ -111,17 +106,15 @@ public:
 		/** A non-specific path. */
 		Path,
 
-
 		///
 		/// LIFECYCLE
 		///
-		
+
 		/** For planned roads, use with proposed=* and also proposed=* with a value of the proposed highway value. */
 		Proposed,
 
 		/** For roads under construction. */
 		Construction,
-
 
 		///
 		/// BUILDINGS
@@ -130,34 +123,30 @@ public:
 		/** Default type of building.  A general catch-all. */
 		Building,
 
-
 		///
 		/// UNSUPPORTED
-		/// 
-		
+		///
+
 		/** Currently unrecognized type */
 		Other,
 	};
-
 
 	struct FOSMWayRef
 	{
 		// Way that we're referencing at this node
 		FOSMWayInfo* Way;
-			
+
 		// Index of the node in the way's array of nodes
 		int32 NodeIndex;
 	};
-		
-		
+
 	struct FOSMNodeInfo
 	{
 		double Latitude;
 		double Longitude;
 		TArray<FOSMWayRef> WayRefs;
 	};
-		
-		
+
 	struct FOSMWayInfo
 	{
 		FString Name;
@@ -180,25 +169,24 @@ public:
 	// Average Latitude (roughly the center of the map)
 	double AverageLatitude = 0.0;
 	double AverageLongitude = 0.0;
-		
+
 	// All ways we've parsed
 	TArray<FOSMWayInfo*> Ways;
-		
+
 	// Maps node IDs to info about each node
 	TMap<int64, FOSMNodeInfo*> NodeMap;
 
 protected:
 
 	// IFastXmlCallback overrides
-	virtual bool ProcessXmlDeclaration( const TCHAR* ElementData, int32 XmlFileLineNumber ) override;
-	virtual bool ProcessComment( const TCHAR* Comment ) override;
-	virtual bool ProcessElement( const TCHAR* ElementName, const TCHAR* ElementData, int32 XmlFileLineNumber ) override;
-	virtual bool ProcessAttribute( const TCHAR* AttributeName, const TCHAR* AttributeValue ) override;
-	virtual bool ProcessClose( const TCHAR* Element ) override;
+	virtual bool ProcessXmlDeclaration(const TCHAR* ElementData, int32 XmlFileLineNumber) override;
+	virtual bool ProcessComment(const TCHAR* Comment) override;
+	virtual bool ProcessElement(const TCHAR* ElementName, const TCHAR* ElementData, int32 XmlFileLineNumber) override;
+	virtual bool ProcessAttribute(const TCHAR* AttributeName, const TCHAR* AttributeValue) override;
+	virtual bool ProcessClose(const TCHAR* Element) override;
 
-	
 protected:
-	
+
 	enum class ParsingState
 	{
 		Root,
@@ -207,21 +195,19 @@ protected:
 		Way_NodeRef,
 		Way_Tag
 	};
-		
+
 	// Current state of parser
 	ParsingState ParsingState;
-		
+
 	// ID of node that is currently being parsed
 	int64 CurrentNodeID;
-		
+
 	// Node that is currently being parsed
 	FOSMNodeInfo* CurrentNodeInfo;
-		
+
 	// Way that is currently being parsed
 	FOSMWayInfo* CurrentWayInfo;
-		
+
 	// Current way's tag key string
 	const TCHAR* CurrentWayTagKey;
 };
-
-

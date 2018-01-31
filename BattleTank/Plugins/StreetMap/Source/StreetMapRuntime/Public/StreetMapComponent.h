@@ -7,14 +7,12 @@
 #include "StreetMapSceneProxy.h"
 #include "StreetMapComponent.generated.h"
 
-
-
 class UBodySetup;
 
 /**
  * Component that represents a section of street map roads and buildings
  */
-UCLASS( meta=(BlueprintSpawnableComponent) , hidecategories = (Physics))
+UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = (Physics))
 class STREETMAPRUNTIME_API UStreetMapComponent : public UMeshComponent, public IInterface_CollisionDataProvider
 {
 	GENERATED_BODY()
@@ -61,7 +59,7 @@ public:
 	}
 
 	/** Returns true, if the input PropertyName correspond to a collision property. */
-	bool IsCollisionProperty(const FName& PropertyName) const 
+	bool IsCollisionProperty(const FName& PropertyName) const
 	{
 		return PropertyName == TEXT("bGenerateCollision") || PropertyName == TEXT("bAllowDoubleSidedGeometry");
 	}
@@ -87,8 +85,6 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "StreetMap")
 		void SetStreetMap(UStreetMap* NewStreetMap, bool bClearPreviousMeshIfAny = false, bool bRebuildMesh = false);
-
-
 
 	//** Begin Interface_CollisionDataProvider Interface */
 	virtual bool GetPhysicsTriMeshData(struct FTriMeshCollisionData* CollisionData, bool InUseAllTriData) override;
@@ -127,8 +123,6 @@ public:
 	/** Rebuilds the graphics and physics mesh representation if we don't have one right now.  Designed to be called on demand. */
 	void BuildMesh();
 
-
-
 protected:
 
 	/** Giving a default material to the mesh if no valid material is already assigned or materials array is empty. */
@@ -146,7 +140,6 @@ protected:
 	/** Adds 3D triangles to the raw mesh */
 	void AddTriangles(const TArray<FVector>& Points, const TArray<int32>& PointIndices, const FVector& ForwardVector, const FVector& UpVector, const FColor& Color, FBox& MeshBoundingBox);
 
-
 protected:
 
 	/** The street map we're representing. */
@@ -162,7 +155,6 @@ protected:
 	//** Physics data for mesh collision. */
 	UPROPERTY(Transient)
 		UBodySetup* StreetMapBodySetup;
-
 
 protected:
 	//
@@ -184,5 +176,4 @@ protected:
 	/** Cached StreetMap DefaultMaterial */
 	UPROPERTY()
 		UMaterialInterface* StreetMapDefaultMaterial;
-
 };

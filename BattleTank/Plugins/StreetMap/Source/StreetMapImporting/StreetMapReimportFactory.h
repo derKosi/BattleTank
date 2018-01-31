@@ -5,7 +5,6 @@
 #include "EditorReimportHandler.h"
 #include "StreetMapReimportFactory.generated.h"
 
-
 /**
  * Import factory object for OpenStreetMap assets
  */
@@ -17,15 +16,13 @@ class UStreetMapReimportFactory : public UStreetMapFactory, public FReimportHand
 public:
 
 	/** UStreetMapReimportFactory constructor */
-	UStreetMapReimportFactory( const class FObjectInitializer& ObjectInitializer );
+	UStreetMapReimportFactory(const class FObjectInitializer& ObjectInitializer);
 
 protected:
 
 	// FReimportHandler overrides
-	virtual bool CanReimport( UObject* Obj, TArray<FString>& OutFilenames ) override;
-	virtual void SetReimportPaths( UObject* Obj, const TArray<FString>& NewReimportPaths ) override;
-	virtual EReimportResult::Type Reimport( UObject* Obj ) override;
+	virtual bool CanReimport(UObject* Obj, TArray<FString>& OutFilenames) override;
+	virtual void SetReimportPaths(UObject* Obj, const TArray<FString>& NewReimportPaths) override;
+	virtual EReimportResult::Type Reimport(UObject* Obj) override;
 	virtual int32 GetPriority() const override;
-
 };
-

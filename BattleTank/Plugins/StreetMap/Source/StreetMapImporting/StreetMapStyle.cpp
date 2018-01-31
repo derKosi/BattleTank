@@ -46,7 +46,6 @@ void FStreetMapStyle::Initialize()
 
 #undef IMAGE_BRUSH
 
-
 void FStreetMapStyle::Shutdown()
 {
 	if (StyleSet.IsValid())

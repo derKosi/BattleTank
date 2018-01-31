@@ -9,11 +9,10 @@
 USTRUCT()
 struct FStreetMapVertex
 {
-
 	GENERATED_USTRUCT_BODY()
 
-	/** Location of the vertex in local space */
-	UPROPERTY()
+		/** Location of the vertex in local space */
+		UPROPERTY()
 		FVector Position;
 
 	/** Texture coordinate */
@@ -32,7 +31,6 @@ struct FStreetMapVertex
 	UPROPERTY()
 		FColor Color;
 
-
 	/** Default constructor, leaves everything uninitialized */
 	FStreetMapVertex()
 	{
@@ -49,26 +47,21 @@ struct FStreetMapVertex
 	}
 };
 
-
 /** Street map mesh vertex buffer */
 class FStreetMapVertexBuffer : public FVertexBuffer
 {
-
 public:
 
 	/** All of the vertices in this mesh */
 	TArray< FStreetMapVertex > Vertices;
 
-
 	// FRenderResource interface
 	virtual void InitRHI() override;
 };
 
-
 /** Street map mesh index buffer */
 class FStreetMapIndexBuffer : public FIndexBuffer
 {
-
 public:
 
 	/** 16-bit indices */
@@ -77,27 +70,22 @@ public:
 	/** 32-bit indices */
 	TArray< uint32 > Indices32;
 
-
 	// FRenderResource interface
 	virtual void InitRHI() override;
 };
 
-
 /** Street map mesh vertex factory */
 class FStreetMapVertexFactory : public FLocalVertexFactory
 {
-
 public:
 
 	/** Initialize this vertex factory */
-	void InitVertexFactory( const FStreetMapVertexBuffer& VertexBuffer );
+	void InitVertexFactory(const FStreetMapVertexBuffer& VertexBuffer);
 };
-
 
 /** Scene proxy for rendering a section of a street map mesh on the rendering thread */
 class FStreetMapSceneProxy : public FPrimitiveSceneProxy
 {
-
 public:
 
 	/** Construct this scene proxy */
@@ -124,7 +112,6 @@ public:
 	/** Destructor that cleans up our rendering data */
 	virtual ~FStreetMapSceneProxy();
 
-
 protected:
 
 	/** Called from the constructor to finish construction after the index buffer is setup */
@@ -150,11 +137,7 @@ protected:
 	virtual FPrimitiveViewRelevance GetViewRelevance(const class FSceneView* View) const override;
 	virtual bool CanBeOccluded() const override;
 
-
-
 protected:
-
-
 
 	/** Contains all of the vertices in our street map mesh */
 	FStreetMapVertexBuffer VertexBuffer;
@@ -175,6 +158,4 @@ protected:
 
 	// The Collision Response of the component being proxied
 	FCollisionResponseContainer CollisionResponse;
-
-
 };

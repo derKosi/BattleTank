@@ -3,29 +3,21 @@
 #include "StreetMapRuntime.h"
 #include "ModuleManager.h"
 
-
 class FStreetMapRuntimeModule : public IModuleInterface
 {
-
 public:
 
 	// IModuleInterface interface
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
-
 };
 
-
-IMPLEMENT_MODULE( FStreetMapRuntimeModule, StreetMapRuntime )
-
-
+IMPLEMENT_MODULE(FStreetMapRuntimeModule, StreetMapRuntime)
 
 void FStreetMapRuntimeModule::StartupModule()
 {
 }
 
-
 void FStreetMapRuntimeModule::ShutdownModule()
 {
 }
-
