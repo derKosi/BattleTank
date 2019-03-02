@@ -14,16 +14,6 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//auto ControlledTank = GetControlledTank();
-	//if (!ControlledTank)
-	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("AIController not possesing a tank"));
-	//}
-	//else
-	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("AIayerController possessing: %s"), *(ControlledTank->GetName()));
-	//}
-
 	auto PlayerTank = GetPlayerTank();
 	if (!PlayerTank)
 	{
@@ -39,6 +29,8 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	AimTowardsPlayer();
 }
 
 ATank* ATankAIController::GetControlledTank() const
@@ -49,4 +41,11 @@ ATank* ATankAIController::GetControlledTank() const
 ATank* ATankAIController::GetPlayerTank() const
 {
 	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+}
+
+void ATankAIController::AimTowardsPlayer()
+{
+	if (!GetControlledTank()) { return; }
+	if (!GetPlayerTank()) { return; }
+	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
 }

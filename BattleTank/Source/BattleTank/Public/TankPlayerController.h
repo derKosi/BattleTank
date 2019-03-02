@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tank.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
+#include "Tank.h"
 #include "TankPlayerController.generated.h"
 
 /**
@@ -27,19 +28,26 @@ private:
 	void AimTowardsCrosshair();
 
 	// Return an OUT parameter, true if hit landscape
-	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 
-protected:
+	// Return an OUT parameter, true if hit landscape
+	bool GetLookVectorHitLocation(FVector& LookDirection, FVector& HitLocation) const;
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+public:
 	UPROPERTY(EditAnywhere)
 		float CrosshairXLocation = .5;
 
 	UPROPERTY(EditAnywhere)
 		float CrosshairYLocation = .33333;
+
+	UPROPERTY(EditAnywhere)
+		float LineTraceRange = 1000000;
 };
